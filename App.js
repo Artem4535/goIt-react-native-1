@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
   Text,
+  TextInput,
   View,
 } from "react-native";
 
@@ -12,6 +13,11 @@ export default function App() {
         Open up App.js to start working on your
         app!
       </Text>
+       <Text>
+              Open up App.js to start working on your
+              app!
+            </Text>
+
       <StatusBar style="auto" />
     </View>
   );
