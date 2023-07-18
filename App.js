@@ -1,33 +1,40 @@
-import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import React, { useState } from "react";
+import { ImageBackground, StyleSheet, Text, View, KeyboardAvoidingView } from "react-native";
+import image from "./Images/bg-image.jpg";
+import { RegistrationScreen } from "./Screens/RegistrationScreen";
+import LoginScreen from "./Screens/LoginScreen";
+// import * as Font from "expo-font";
+// import AppLoading from "expo";
 
-export default function App() {
+// const loadApplication = async () => {
+//   await Font.loadAsync({
+//     "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
+//   });
+// };
+
+const App = () => {
   return (
     <View style={styles.container}>
-      <Text>
-        Open up App.js to start working on your
-        app!
-      </Text>
-       <Text>
-              Open up App.js to start working on your
-              app!
-            </Text>
-
-      <StatusBar style="auto" />
+      <ImageBackground source={image} resizeMode="cover" style={styles.image}>
+        <KeyboardAvoidingView
+          style={styles.container}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+        >
+          {/* <RegistrationScreen /> */}
+          <LoginScreen />
+        </KeyboardAvoidingView>
+      </ImageBackground>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+  },
+  image: {
+    flex: 1,
   },
 });
+
+export default App;
