@@ -1,40 +1,64 @@
 import React, { useState } from "react";
-import { ImageBackground, StyleSheet, Text, View, KeyboardAvoidingView } from "react-native";
+import {
+  ImageBackground,
+  StyleSheet,
+  Text,
+  View,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from "react-native";
 import image from "./Images/bg-image.jpg";
 import { RegistrationScreen } from "./Screens/RegistrationScreen";
 import LoginScreen from "./Screens/LoginScreen";
-// import * as Font from "expo-font";
-// import AppLoading from "expo";
-
-// const loadApplication = async () => {
-//   await Font.loadAsync({
-//     "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
-//   });
-// };
 
 const App = () => {
-  return (
-    <View style={styles.container}>
-      <ImageBackground source={image} resizeMode="cover" style={styles.image}>
-        <KeyboardAvoidingView
-          style={styles.container}
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
-        >
-          {/* <RegistrationScreen /> */}
-          <LoginScreen />
-        </KeyboardAvoidingView>
-      </ImageBackground>
-    </View>
-  );
+  return <RegistrationScreen />;
 };
+
+export default App;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  image: {
-    flex: 1,
+  form: {
+    paddingHorizontal: 20,
+    paddingTop: 32,
+    marginTop: "auto",
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+    backgroundColor: "#FFFFFF",
+  },
+  title: {
+    textAlign: "center",
+    fontSize: 30,
+    color: "#212121",
+    marginBottom: 32,
+  },
+  input: {
+    height: 40,
+    marginVertical: 12,
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 5,
+    backgroundColor: "#F6F6F6",
+    borderColor: "#E8E8E8",
+  },
+  button: {
+    paddingVertical: 16,
+    paddingHorizontal: 32,
+    marginTop: 20,
+    borderRadius: 100,
+    backgroundColor: "#FF6C00",
+  },
+  btnText: {
+    textAlign: "center",
+    color: "#FFFFFF",
+  },
+  link: {
+    marginTop: 10,
+    textAlign: "center",
+    color: "#1B4371",
   },
 });
-
-export default App;
