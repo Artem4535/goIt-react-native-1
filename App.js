@@ -1,64 +1,82 @@
 import React, { useState } from "react";
-import {
-  ImageBackground,
-  StyleSheet,
-  Text,
-  View,
-  KeyboardAvoidingView,
-  TouchableWithoutFeedback,
-  Keyboard,
-} from "react-native";
-import image from "./Images/bg-image.jpg";
-import { RegistrationScreen } from "./Screens/RegistrationScreen";
-import LoginScreen from "./Screens/LoginScreen";
+import "react-native-gesture-handler";
+import { AntDesign } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import RegistrationScreen from "./Screens/auth/RegistrationScreen";
+import LoginScreen from "./Screens/auth/LoginScreen";
+import PostsScreen from "./Screens/user/PostsScreen";
+import CreatePostsScreen from "./Screens/user/CreatePostsScreen";
+import ProfileScreen from "./Screens/user/ProfileScreen";
+
+const AuthStack = createStackNavigator();
+const BottomStackNavigation = createBottomTabNavigator();
+const useRoute = (isAuth) => {
+  if (!isAuth) {
+    return (
+      <AuthStack.Navigator initialRouteName="Registartion">
+        <AuthStack.Screen
+          options={{ headerShown: false }}
+          name="Registartion"
+          component={RegistrationScreen}
+        />
+        <AuthStack.Screen options={{ headerShown: false }} name="Login" component={LoginScreen} />
+      </AuthStack.Navigator>
+    );
+  }
+  return (
+    <BottomStackNavigation.Navigator
+      screenOptions={{
+        tabBarShowLabel: false,
+        headerShown: false,
+        tabBarActiveBackgroundColor: "#FF6C00",
+      }}
+    >
+      <BottomStackNavigation.Screen
+        options={{
+          tabBarItemStyle: { borderRadius: 50, padding: 8 },
+          tabBarIcon: ({ focused, color = "#212121", size }) => (
+            <AntDesign
+              name="appstore-o"
+              size={24}
+              color={color}
+              style={{ borderRadius: 20, display: "block" }}
+            />
+          ),
+        }}
+        name="Posts"
+        component={PostsScreen}
+      />
+      <BottomStackNavigation.Screen
+        options={{
+          tabBarItemStyle: { borderRadius: 50, padding: 8 },
+          tabBarIcon: ({ focused, color = "#212121", size }) => (
+            <AntDesign name="plus" size={24} color={color} />
+          ),
+        }}
+        name="CreatePost"
+        component={CreatePostsScreen}
+      />
+      <BottomStackNavigation.Screen
+        options={{
+          tabBarItemStyle: { borderRadius: 50, padding: 8 },
+          tabBarActiveTintColor: "#242344",
+          tabBarIcon: ({ focused, color = "#212121", size }) => (
+            <Feather name="user" size={24} color={color} />
+          ),
+        }}
+        name="Profile"
+        component={ProfileScreen}
+      />
+    </BottomStackNavigation.Navigator>
+  );
+};
 
 const App = () => {
-  return <RegistrationScreen />;
+  const routing = useRoute(true);
+  return <NavigationContainer>{routing}</NavigationContainer>;
 };
 
 export default App;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  form: {
-    paddingHorizontal: 20,
-    paddingTop: 32,
-    marginTop: "auto",
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-    backgroundColor: "#FFFFFF",
-  },
-  title: {
-    textAlign: "center",
-    fontSize: 30,
-    color: "#212121",
-    marginBottom: 32,
-  },
-  input: {
-    height: 40,
-    marginVertical: 12,
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 5,
-    backgroundColor: "#F6F6F6",
-    borderColor: "#E8E8E8",
-  },
-  button: {
-    paddingVertical: 16,
-    paddingHorizontal: 32,
-    marginTop: 20,
-    borderRadius: 100,
-    backgroundColor: "#FF6C00",
-  },
-  btnText: {
-    textAlign: "center",
-    color: "#FFFFFF",
-  },
-  link: {
-    marginTop: 10,
-    textAlign: "center",
-    color: "#1B4371",
-  },
-});

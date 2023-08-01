@@ -11,7 +11,7 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 
-import image from "../Images/bg-image.jpg";
+import image from "../../Images/bg-image.jpg";
 
 const formReducer = (state, action) => {
   switch (action.type) {
@@ -29,7 +29,7 @@ const innitialState = {
   password: "",
 };
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const [formState, dispatch] = useReducer(formReducer, innitialState);
   const [showKeyboard, setShowKeyboard] = useState(false);
   const hideKeyBoard = () => {
@@ -69,7 +69,9 @@ const LoginScreen = () => {
             <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={onSubmit}>
               <Text style={styles.btnText}>Sign in</Text>
             </TouchableOpacity>
-            <Text style={styles.link}>Немає акаунту? Зареєструватися</Text>
+            <TouchableOpacity onPress={() => navigation.navigate("Registartion")}>
+              <Text style={styles.link}>Немає акаунту? Зареєструватися</Text>
+            </TouchableOpacity>
           </View>
         </KeyboardAvoidingView>
       </ImageBackground>
