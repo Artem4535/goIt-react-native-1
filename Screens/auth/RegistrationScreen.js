@@ -46,6 +46,7 @@ const RegistrationScreen = ({ navigation }) => {
     dispatch({ type: "SET_EMAIL", payload: "" });
     dispatch({ type: "SET_PASSWORD", payload: "" });
     dispatch({ type: "SET_NAME", payload: "" });
+    navigation.navigate("Posts");
   };
   return (
     <TouchableWithoutFeedback onPress={hideKeyBoard}>
@@ -60,6 +61,7 @@ const RegistrationScreen = ({ navigation }) => {
               placeholder="Логін"
               onFocus={() => setShowKeyboard(true)}
               onChangeText={(text) => dispatch({ type: "SET_NAME", payload: text })}
+              onSubmitEditing={hideKeyBoard}
             />
             <TextInput
               style={styles.input}
@@ -67,6 +69,7 @@ const RegistrationScreen = ({ navigation }) => {
               placeholder="Адреса електронної пошти"
               onFocus={() => setShowKeyboard(true)}
               onChangeText={(text) => dispatch({ type: "SET_EMAIL", payload: text })}
+              onSubmitEditing={hideKeyBoard}
             />
             <TextInput
               style={styles.input}
@@ -75,6 +78,7 @@ const RegistrationScreen = ({ navigation }) => {
               placeholder="Пароль"
               onFocus={() => setShowKeyboard(true)}
               onChangeText={(text) => dispatch({ type: "SET_PASSWORD", payload: text })}
+              onSubmitEditing={hideKeyBoard}
             />
             <TouchableOpacity style={styles.button} onPress={onSubmit}>
               <Text style={styles.btnText}>Sign in</Text>

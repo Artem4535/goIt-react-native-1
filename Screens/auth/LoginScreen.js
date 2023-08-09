@@ -41,6 +41,7 @@ const LoginScreen = ({ navigation }) => {
     console.log(formState);
     dispatch({ type: "SET_EMAIL", payload: "" });
     dispatch({ type: "SET_PASSWORD", payload: "" });
+    navigation.navigate("Posts");
   };
 
   return (
@@ -55,6 +56,7 @@ const LoginScreen = ({ navigation }) => {
                 placeholder="Адреса електронної пошти"
                 onFocus={() => setShowKeyboard(true)}
                 onChangeText={(text) => dispatch({ type: "SET_EMAIL", payload: text })}
+                onSubmitEditing={hideKeyBoard}
               />
             </View>
             <View>
@@ -64,6 +66,7 @@ const LoginScreen = ({ navigation }) => {
                 placeholder="Пароль"
                 onFocus={() => setShowKeyboard(true)}
                 onChangeText={(text) => dispatch({ type: "SET_PASSWORD", payload: text })}
+                onSubmitEditing={hideKeyBoard}
               />
             </View>
             <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={onSubmit}>
