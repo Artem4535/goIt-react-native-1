@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import "react-native-gesture-handler";
-
-import { NavigationContainer } from "@react-navigation/native";
-import { StyleSheet, View } from "react-native";
-import { useRoute } from "./Routes/Routes";
+import { AuthProvider } from "./Routes/Context";
+import { AuthWrapper } from "./Routes/AuthWrapper";
 
 const App = () => {
-  const routing = useRoute(true);
-  return <NavigationContainer>{routing}</NavigationContainer>;
+  return (
+    <AuthProvider>
+      <AuthWrapper></AuthWrapper>
+    </AuthProvider>
+  );
 };
 
 export default App;

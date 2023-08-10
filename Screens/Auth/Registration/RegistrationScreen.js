@@ -11,41 +11,33 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 
-import image from "../../Images/bg-image.jpg";
+import image from "../../../Images/bg-image.jpg";
 
-const formReducer = (state, action) => {
-  switch (action.type) {
-    case "SET_EMAIL":
-      return { ...state, email: action.payload };
-    case "SET_PASSWORD":
-      return { ...state, password: action.payload };
-    case "SET_NAME":
-      return { ...state, name: action.payload };
-    default:
-      return state;
-  }
-};
+import { innitialState } from "./State";
 
-const innitialState = {
-  name: "",
-  email: "",
-  password: "",
-};
-console.log(innitialState);
+import { formReducer } from "./Reducer";
+
+import { useAuth } from "../../../Routes/Context";
 
 const RegistrationScreen = ({ navigation }) => {
   const [formState, dispatch] = useReducer(formReducer, innitialState);
+
   const [showKeyboard, setShowKeyboard] = useState(false);
+
   const hideKeyBoard = () => {
     setShowKeyboard(false), Keyboard.dismiss();
     console.log(formState);
   };
+
+  const { setIsAuth } = useAuth();
+
   const onSubmit = () => {
     setShowKeyboard(false), Keyboard.dismiss();
     console.log(formState);
     dispatch({ type: "SET_EMAIL", payload: "" });
     dispatch({ type: "SET_PASSWORD", payload: "" });
     dispatch({ type: "SET_NAME", payload: "" });
+    setIsAuth(true);
     navigation.navigate("Posts");
   };
   return (

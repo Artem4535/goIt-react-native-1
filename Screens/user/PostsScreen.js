@@ -1,17 +1,23 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useAuth } from "../../Routes/Context";
 
 const PostsScreen = () => {
+  const { setIsAuth } = useAuth();
+
+  const logout = () => {
+    setIsAuth(false);
+  };
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <View style={styles.headerTitleContainer}>
           <Text style={styles.headerTitle}>Публікації</Text>
         </View>
-        <View style={styles.iconContainer}>
+        <TouchableOpacity style={styles.iconContainer} onPress={logout}>
           <MaterialIcons name="logout" size={24} color="#BDBDBD" />
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -19,8 +25,10 @@ const PostsScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 10,
     flex: 1,
+    paddingHorizontal: 10,
+
+    backgroundColor: "#FFFFFF",
   },
   headerContainer: {
     marginTop: 30,

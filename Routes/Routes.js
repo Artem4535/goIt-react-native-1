@@ -2,11 +2,14 @@ import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import RegistrationScreen from "../Screens/auth/RegistrationScreen";
-import LoginScreen from "../Screens/auth/LoginScreen";
+import RegistrationScreen from "../Screens/Auth/Registration/RegistrationScreen";
+import LoginScreen from "../Screens/Auth/Login/LoginScreen";
 import PostsScreen from "../Screens/user/PostsScreen";
 import CreatePostsScreen from "../Screens/user/CreatePostsScreen";
 import ProfileScreen from "../Screens/user/ProfileScreen";
+import React, { useState } from "react";
+
+import { useAuth } from "./Context";
 
 const AuthStack = createStackNavigator();
 const BottomStackNavigation = createBottomTabNavigator();
