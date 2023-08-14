@@ -7,9 +7,9 @@ import LoginScreen from "../Screens/Auth/Login/LoginScreen";
 import PostsScreen from "../Screens/user/PostsScreen";
 import CreatePostsScreen from "../Screens/user/CreatePostsScreen";
 import ProfileScreen from "../Screens/user/ProfileScreen";
-import React, { useState } from "react";
-
-import { useAuth } from "./Context";
+import React from "react";
+import CommentsScreen from "../Screens/user/NestedScreen/CommentsScreen";
+import MapScreen from "../Screens/user/NestedScreen/MapScreen";
 
 const AuthStack = createStackNavigator();
 const BottomStackNavigation = createBottomTabNavigator();
@@ -86,3 +86,68 @@ export const useRoute = (isAuth) => {
     </BottomStackNavigation.Navigator>
   );
 };
+
+// const ScreenWithBottomNavigation = () => {
+//   return (
+//     <BottomStackNavigation.Navigator
+//       screenOptions={{
+//         tabBarShowLabel: false,
+//         headerShown: false,
+
+//         tabBarActiveBackgroundColor: "#FF6C00",
+//         tabBarStyle: {
+//           paddingHorizontal: 80,
+//           paddingTop: 9,
+//         },
+//         tabBarActiveTintColor: "#FFFFFF",
+//       }}
+//     >
+//       <BottomStackNavigation.Screen
+//         options={{
+//           tabBarItemStyle: { borderRadius: 50, padding: 8 },
+//           tabBarIcon: ({ focused, color = "#212121", size }) => (
+//             <AntDesign name="appstore-o" size={24} color={color} style={{ borderRadius: 20 }} />
+//           ),
+//         }}
+//         name="Posts"
+//         component={PostsScreen}
+//       />
+//       <BottomStackNavigation.Screen
+//         options={{
+//           tabBarItemStyle: { borderRadius: 50 },
+//           tabBarIcon: ({ focused, color = "#212121", size }) => (
+//             <AntDesign name="plus" size={24} color={color} />
+//           ),
+//         }}
+//         name="CreatePost"
+//         component={CreatePostsScreen}
+//       />
+//       <BottomStackNavigation.Screen
+//         options={{
+//           tabBarItemStyle: { borderRadius: 50, padding: 8 },
+//           tabBarIcon: ({ focused, color = "#212121", size }) => (
+//             <Feather name="user" size={24} color={color} />
+//           ),
+//         }}
+//         name="Profile"
+//         component={ProfileScreen}
+//       />
+//     </BottomStackNavigation.Navigator>
+//   );
+// };
+
+// const ScreenWithOutBottomNAvigations = () => {
+//   return (
+//     <AuthStack.Navigator>
+//       <AuthStack.Screen name="Comments" component={CommentsScreen} />
+//       <AuthStack.Screen name="Map" component={MapScreen} />
+//     </AuthStack.Navigator>
+//   );
+// };
+
+// const AppNavigator = () => {
+//   <AuthStack.Navigator>
+//     <AuthStack.Screen name="withTaps" component={ScreenWithBottomNavigation} />
+//     <AuthStack.Screen name="withTaps" component={ScreenWithOutBottomNAvigations} />
+//   </AuthStack.Navigator>;
+// };

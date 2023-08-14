@@ -37,6 +37,7 @@ const RegistrationScreen = ({ navigation }) => {
     dispatch({ type: "SET_EMAIL", payload: "" });
     dispatch({ type: "SET_PASSWORD", payload: "" });
     dispatch({ type: "SET_NAME", payload: "" });
+    console.log(formState);
     setIsAuth(true);
     navigation.navigate("Posts");
   };
