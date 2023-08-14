@@ -12,6 +12,7 @@ import CommentsScreen from "../Screens/user/NestedScreen/CommentsScreen";
 import MapScreen from "../Screens/user/NestedScreen/MapScreen";
 
 const AuthStack = createStackNavigator();
+const User = createStackNavigator();
 const BottomStackNavigation = createBottomTabNavigator();
 
 export const useRoute = (isAuth) => {
@@ -40,50 +41,56 @@ export const useRoute = (isAuth) => {
     );
   }
   return (
-    <BottomStackNavigation.Navigator
-      screenOptions={{
-        tabBarShowLabel: false,
-        headerShown: false,
+    <>
+      <BottomStackNavigation.Navigator
+        screenOptions={{
+          tabBarShowLabel: false,
+          headerShown: false,
 
-        tabBarActiveBackgroundColor: "#FF6C00",
-        tabBarStyle: {
-          paddingHorizontal: 80,
-          paddingTop: 9,
-        },
-        tabBarActiveTintColor: "#FFFFFF",
-      }}
-    >
-      <BottomStackNavigation.Screen
-        options={{
-          tabBarItemStyle: { borderRadius: 50, padding: 8 },
-          tabBarIcon: ({ focused, color = "#212121", size }) => (
-            <AntDesign name="appstore-o" size={24} color={color} style={{ borderRadius: 20 }} />
-          ),
+          tabBarActiveBackgroundColor: "#FF6C00",
+          tabBarStyle: {
+            paddingHorizontal: 80,
+            paddingTop: 9,
+          },
+          tabBarActiveTintColor: "#FFFFFF",
         }}
-        name="Posts"
-        component={PostsScreen}
-      />
-      <BottomStackNavigation.Screen
-        options={{
-          tabBarItemStyle: { borderRadius: 50 },
-          tabBarIcon: ({ focused, color = "#212121", size }) => (
-            <AntDesign name="plus" size={24} color={color} />
-          ),
-        }}
-        name="CreatePost"
-        component={CreatePostsScreen}
-      />
-      <BottomStackNavigation.Screen
-        options={{
-          tabBarItemStyle: { borderRadius: 50, padding: 8 },
-          tabBarIcon: ({ focused, color = "#212121", size }) => (
-            <Feather name="user" size={24} color={color} />
-          ),
-        }}
-        name="Profile"
-        component={ProfileScreen}
-      />
-    </BottomStackNavigation.Navigator>
+      >
+        <BottomStackNavigation.Screen
+          options={{
+            tabBarItemStyle: { borderRadius: 50, padding: 8 },
+            tabBarIcon: ({ focused, color = "#212121", size }) => (
+              <AntDesign name="appstore-o" size={24} color={color} style={{ borderRadius: 20 }} />
+            ),
+          }}
+          name="Posts"
+          component={PostsScreen}
+        />
+        <BottomStackNavigation.Screen
+          options={{
+            tabBarItemStyle: { borderRadius: 50 },
+            tabBarIcon: ({ focused, color = "#212121", size }) => (
+              <AntDesign name="plus" size={24} color={color} />
+            ),
+          }}
+          name="CreatePost"
+          component={CreatePostsScreen}
+        />
+        <BottomStackNavigation.Screen
+          options={{
+            tabBarItemStyle: { borderRadius: 50, padding: 8 },
+            tabBarIcon: ({ focused, color = "#212121", size }) => (
+              <Feather name="user" size={24} color={color} />
+            ),
+          }}
+          name="Profile"
+          component={ProfileScreen}
+        />
+      </BottomStackNavigation.Navigator>
+      <AuthStack.Navigator>
+        <AuthStack.Screen name="Comments" component={CommentsScreen} />
+        <AuthStack.Screen name="MapScreen" component={MapScreen} />
+      </AuthStack.Navigator>
+    </>
   );
 };
 
