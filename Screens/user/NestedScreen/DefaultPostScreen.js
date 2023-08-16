@@ -5,6 +5,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { Text, View, StyleSheet, TouchableOpacity, FlatList, Image } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useAuth } from "../../../Routes/Context";
+import { Linking } from "react-native";
 
 const DefaultPostScreen = ({ route, navigation }) => {
   const { setIsAuth } = useAuth();
@@ -14,8 +15,8 @@ const DefaultPostScreen = ({ route, navigation }) => {
     if (route.params) {
       setPosts((prev) => [...prev, route.params.newPost]);
     }
+    console.log("DefaultPostScreen", posts);
   }, [route.params]);
-  console.log("DefaultPostScreen", posts);
 
   const logout = () => {
     setIsAuth(false);
@@ -43,13 +44,22 @@ const DefaultPostScreen = ({ route, navigation }) => {
             </View>
             <View style={styles.postDescriptionContainer}>
               <View style={styles.commetsContainer}>
-                <TouchableOpacity onPress={() => navigation.navigate("CommentsScreen")}>
+                <TouchableOpacity onPress={() => navigation.navigate("Comments")}>
                   <FontAwesome name="comment-o" size={24} color="#BDBDBD" />
                 </TouchableOpacity>
                 <Text style={styles.commentsNumber}>0</Text>
               </View>
               <View style={styles.locationContainer}>
-                <TouchableOpacity onPress={() => navigation.navigate("MapScreen")}>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate("Map", {
+                      location: {
+                        latitude: item.coords.latitude,
+                        longitude: item.coords.longitude,
+                      },
+                    })
+                  }
+                >
                   <EvilIcons name="location" size={24} color="#BDBDBD" />
                 </TouchableOpacity>
 

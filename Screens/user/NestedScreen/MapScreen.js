@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { CommonActions } from "@react-navigation/native";
-import MapView from "react-native-maps";
+import MapView, { Marker } from "react-native-maps";
 
-const MapScreen = ({ navigation }) => {
+const MapScreen = ({ navigation, route }) => {
+  // const [location, setLocation] = useState();
+  const { latitude, longitude } = route.params.location;
+
+  // useEffect(() => {
+  //   if (route.params) {
+  //     setLocation((prev) => [...prev, route.params.location]);
+  //     console.log(location);
+  //   }
+
+  //   console.log("MAp", route.params);
+  // }, [route.params]);
+
   const goBack = () => {
     navigation.dispatch(CommonActions.goBack());
   };
@@ -19,7 +31,21 @@ const MapScreen = ({ navigation }) => {
           <Ionicons name="arrow-back" size={24} color="#212121CC" />
         </TouchableOpacity>
       </View>
-      <MapView style={styles.map}></MapView>
+      <MapView
+        style={styles.map}
+        region={{
+          latitude: latitude,
+          longitude: longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+      >
+        <Marker
+          title="I am here"
+          coordinate={{ latitude: latitude, longitude: longitude }}
+          description="Hello"
+        />
+      </MapView>
     </View>
   );
 };

@@ -14,6 +14,8 @@ const PostsScreen = () => {
       initialRouteName="DefaultPostScreen"
     >
       <NestedScreen.Screen name="DefaultPostScreen" component={DefaultPostScreen} />
+      <NestedScreen.Screen name="Map" component={MapScreen} />
+      <NestedScreen.Screen name="Comments" component={CommentsScreen} />
     </NestedScreen.Navigator>
   );
 };

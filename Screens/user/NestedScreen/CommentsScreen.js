@@ -1,5 +1,14 @@
 import React from "react";
-import { TextInput, View, TouchableOpacity, Text, StyleSheet } from "react-native";
+import {
+  TextInput,
+  View,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { CommonActions } from "@react-navigation/native";
 
@@ -7,8 +16,17 @@ const CommentsScreen = ({ navigation }) => {
   const goBack = () => {
     navigation.dispatch(CommonActions.goBack());
   };
+
+  const handleReturnPress = () => {
+    navigation.dispatch(CommonActions.goBack());
+  };
+
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 1 : 0} // Змініть значення на ваш розмір відступу
+      style={styles.container}
+    >
       <View style={styles.headerContainer}>
         <View style={styles.headerTitleContainer}>
           <Text style={styles.headerTitle}>Коментарі</Text>
@@ -18,9 +36,12 @@ const CommentsScreen = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <View style={styles.inputContainer}>
-        <TextInput style={styles.input} placeholder="Коментувати" />
+        <TextInput style={styles.input} placeholder="Коментувати" returnKeyType="done" />
+        <TouchableOpacity style={styles.sendIconContainer}>
+          <AntDesign name="arrowup" size={24} color="#FFFFFF" />
+        </TouchableOpacity>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -58,11 +79,23 @@ const styles = StyleSheet.create({
     marginTop: "auto",
   },
   input: {
+    position: "relative",
     height: 50,
     borderWidth: 1,
     marginHorizontal: 16,
     borderRadius: 50,
     borderColor: "#F6F6F6",
+    marginBottom: 30,
+    paddingLeft: 16,
+    backgroundColor: "#F6F6F6",
+  },
+  sendIconContainer: {
+    padding: 8,
+    borderRadius: 50,
+    backgroundColor: "#FF6C00",
+    position: "absolute",
+    top: 6,
+    right: 30,
   },
 });
 

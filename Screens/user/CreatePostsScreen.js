@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import { EvilIcons } from "@expo/vector-icons";
 import { Text, View, StyleSheet, TouchableOpacity, TextInput, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
+
 import { FontAwesome } from "@expo/vector-icons";
 import * as Location from "expo-location";
 
 import { CommonActions } from "@react-navigation/native";
 import { Camera } from "expo-camera";
-import * as MediaLibrary from "expo-media-library";
 
 const CreatePostsScreen = ({ navigation }) => {
   const [postTitle, setPostTitle] = useState("");
@@ -15,7 +16,7 @@ const CreatePostsScreen = ({ navigation }) => {
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [photo, setPhoto] = useState("");
   const [postLocation, setPostLocation] = useState("");
-  const [location, setLocation] = useState("");
+  const [coords, setCoords] = useState("");
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -32,10 +33,14 @@ const CreatePostsScreen = ({ navigation }) => {
   };
 
   const takePhoto = async () => {
+    const location = await Location.getCurrentPositionAsync({});
+    const coord = {
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+    };
+    setCoords(coord);
     const takeImage = await snap.takePictureAsync();
     setPhoto(takeImage.uri);
-    const location = await Location.getCurrentPositionAsync({});
-    console.log("location:", location);
   };
 
   const removePhoto = () => {
@@ -45,6 +50,13 @@ const CreatePostsScreen = ({ navigation }) => {
   const reset = () => {
     setPostTitle("");
     setPhoto("");
+    setPostLocation("");
+    setCoords("");
+  };
+
+  const onClickThashIcon = () => {
+    reset();
+    navigation.navigate("Posts");
   };
 
   const handleSubmit = async () => {
@@ -52,6 +64,7 @@ const CreatePostsScreen = ({ navigation }) => {
       postTitle,
       photo,
       postLocation,
+      coords,
     };
     setPosts((prev) => [...prev, newPost]);
     navigation.navigate("DefaultPostScreen", { newPost });
@@ -123,6 +136,9 @@ const CreatePostsScreen = ({ navigation }) => {
       </View>
       <TouchableOpacity style={styles.button} activeOpacity={0.7} onPress={handleSubmit}>
         <Text style={styles.buttonText}>Опубліковати</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.trashContainer} onPress={onClickThashIcon}>
+        <Feather name="trash-2" size={24} color="#BDBDBD" />
       </TouchableOpacity>
     </View>
   );
@@ -238,6 +254,21 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 16,
     color: "#ffffff",
+  },
+  trashContainer: {
+    width: 70,
+
+    justifyContent: "center",
+    backgroundColor: "#F6F6F6",
+    alignItems: "center",
+
+    marginBottom: 30,
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: "auto",
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 20,
   },
 });
 

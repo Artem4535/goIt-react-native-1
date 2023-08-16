@@ -10,9 +10,9 @@ import ProfileScreen from "../Screens/user/ProfileScreen";
 import React from "react";
 import CommentsScreen from "../Screens/user/NestedScreen/CommentsScreen";
 import MapScreen from "../Screens/user/NestedScreen/MapScreen";
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 
 const AuthStack = createStackNavigator();
-const User = createStackNavigator();
 const BottomStackNavigation = createBottomTabNavigator();
 
 export const useRoute = (isAuth) => {
@@ -41,56 +41,58 @@ export const useRoute = (isAuth) => {
     );
   }
   return (
-    <>
-      <BottomStackNavigation.Navigator
-        screenOptions={{
-          tabBarShowLabel: false,
+    <BottomStackNavigation.Navigator
+      screenOptions={{
+        tabBarShowLabel: false,
+        headerShown: false,
+        tabBarActiveBackgroundColor: "#FF6C00",
+        tabBarStyle: {
+          paddingHorizontal: 80,
+          paddingTop: 9,
+        },
+        tabBarActiveTintColor: "#FFFFFF",
+      }}
+    >
+      <BottomStackNavigation.Screen
+        name="Posts"
+        component={PostsScreen}
+        options={({ route }) => ({
           headerShown: false,
-
-          tabBarActiveBackgroundColor: "#FF6C00",
-          tabBarStyle: {
-            paddingHorizontal: 80,
-            paddingTop: 9,
-          },
-          tabBarActiveTintColor: "#FFFFFF",
+          tabBarItemStyle: { borderRadius: 50, padding: 8 },
+          tabBarStyle: ((route) => {
+            const routeName = getFocusedRouteNameFromRoute(route) ?? "";
+            if (routeName === "Comments" || routeName === "Map") {
+              return { display: "none" };
+            }
+            return { paddingHorizontal: 80, paddingTop: 9 };
+          })(route),
+          tabBarIcon: ({ focused, color = "#212121", size }) => (
+            <AntDesign name="appstore-o" size={24} color={color} style={{ borderRadius: 20 }} />
+          ),
+        })}
+      />
+      <BottomStackNavigation.Screen
+        options={{
+          tabBarItemStyle: { borderRadius: 50 },
+          tabBarStyle: { display: "none" },
+          tabBarIcon: ({ focused, color = "#212121", size }) => (
+            <AntDesign name="plus" size={24} color={color} />
+          ),
         }}
-      >
-        <BottomStackNavigation.Screen
-          options={{
-            tabBarItemStyle: { borderRadius: 50, padding: 8 },
-            tabBarIcon: ({ focused, color = "#212121", size }) => (
-              <AntDesign name="appstore-o" size={24} color={color} style={{ borderRadius: 20 }} />
-            ),
-          }}
-          name="Posts"
-          component={PostsScreen}
-        />
-        <BottomStackNavigation.Screen
-          options={{
-            tabBarItemStyle: { borderRadius: 50 },
-            tabBarIcon: ({ focused, color = "#212121", size }) => (
-              <AntDesign name="plus" size={24} color={color} />
-            ),
-          }}
-          name="CreatePost"
-          component={CreatePostsScreen}
-        />
-        <BottomStackNavigation.Screen
-          options={{
-            tabBarItemStyle: { borderRadius: 50, padding: 8 },
-            tabBarIcon: ({ focused, color = "#212121", size }) => (
-              <Feather name="user" size={24} color={color} />
-            ),
-          }}
-          name="Profile"
-          component={ProfileScreen}
-        />
-      </BottomStackNavigation.Navigator>
-      <AuthStack.Navigator>
-        <AuthStack.Screen name="Comments" component={CommentsScreen} />
-        <AuthStack.Screen name="MapScreen" component={MapScreen} />
-      </AuthStack.Navigator>
-    </>
+        name="CreatePost"
+        component={CreatePostsScreen}
+      />
+      <BottomStackNavigation.Screen
+        options={{
+          tabBarItemStyle: { borderRadius: 50, padding: 8 },
+          tabBarIcon: ({ focused, color = "#212121", size }) => (
+            <Feather name="user" size={24} color={color} />
+          ),
+        }}
+        name="Profile"
+        component={ProfileScreen}
+      />
+    </BottomStackNavigation.Navigator>
   );
 };
 
@@ -158,3 +160,7 @@ export const useRoute = (isAuth) => {
 //     <AuthStack.Screen name="withTaps" component={ScreenWithOutBottomNAvigations} />
 //   </AuthStack.Navigator>;
 // };
+
+// tabBarItemStyle: { borderRadius: 50, padding: 8 },
+//           tabBarIcon: ({ focused, color = "#212121", size }) => (
+//             <AntDesign name="appstore-o" size={24} color={color} style={{ borderRadius: 20 }} />
